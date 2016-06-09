@@ -78,8 +78,8 @@ namespace HexViewer
             scrollbar.Enabled = true;
             fileSystemWatcher1.Path = System.IO.Directory.GetParent(dialog.FileName).FullName;
             fileSystemWatcher1.Filter = dialog.SafeFileName;
+            //contextMenuStrip1.Enabled = true;
             loadLines();
-            contextMenuStrip1.Enabled = true;
             if(dialog.SafeFileName.IndexOf(".") > -1)
                 updateWindowTitle( dialog.SafeFileName.Substring(0, dialog.SafeFileName.IndexOf(".")));
             else
@@ -270,6 +270,21 @@ namespace HexViewer
                 picMarker.Visible = false;
                 txtMarker.Visible = false;
                 updateByteDifference();
+            }
+        }
+        
+        void Btn_gotoClick(object sender, EventArgs e)
+        {
+            FrmGoto fg = new FrmGoto();
+            DialogResult result = fg.ShowDialog();
+            if(result == DialogResult.OK) {
+                if(fg.m_address == 1)
+                    MessageBox.Show("test", "test");
+                if(fg.m_address == 170)
+                    MessageBox.Show("test10", "test10");
+                
+                scrollbar.Value = fg.m_address / BYTESPERLINE;
+                loadLines();
             }
         }
     }
